@@ -1,0 +1,16 @@
+
+cache:
+  addressCache:
+    secondsToExpire: 900
+    maxSize: 500
+
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: ADDRESS_CACHE_MAXSIZE_2_SECONDSTOEXPIRE_2
+#
+#cache:
+#  addressCache:
+#    secondsToExpire: 2
+#    maxSize: 2

@@ -1,0 +1,8 @@
+
+cache:
+  addressCache:
+    secondsToExpire: 900
+    maxSize: 500
+  personCache:
+    secondsToExpire: 900
+    maxSize: 500
