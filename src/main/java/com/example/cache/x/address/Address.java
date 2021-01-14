@@ -1,4 +1,4 @@
-package com.example.cache.y.address;
+package com.example.cache.x.address;
 
 import lombok.Builder;
 import lombok.Getter;

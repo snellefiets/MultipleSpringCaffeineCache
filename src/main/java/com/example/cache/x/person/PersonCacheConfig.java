@@ -1,4 +1,4 @@
-package com.example.cache.y.person;
+package com.example.cache.x.person;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.beans.factory.annotation.Value;

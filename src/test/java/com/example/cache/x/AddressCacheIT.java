@@ -1,7 +1,7 @@
-package com.example.cache.y;
+package com.example.cache.x;
 
-import com.example.cache.y.person.PersonCache;
-import com.example.cache.y.person.PersonService;
+import com.example.cache.x.address.AddressCache;
+import com.example.cache.x.address.AddressService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,50 +19,50 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@SpringBootTest(properties = {"cache.personCache.secondsToExpire=2", "cache.personCache.maxSize=4"})
+@SpringBootTest(properties = {"cache.addressCache.secondsToExpire=2", "cache.addressCache.maxSize=2"})
 @ExtendWith(SpringExtension.class)
-public class PersonCacheIT {
+public class AddressCacheIT {
 
     @Autowired
-    PersonCache personCache;
+    AddressCache addressCache;
 
     @Autowired
-    @Qualifier("personCacheManager")
+    @Qualifier("addressCacheManager")
     CacheManager cacheManager;
 
     @MockBean
-    PersonService personService;
+    AddressService addressService;
 
     Cache cache;
 
 
     @BeforeEach
     void setup() {
-        cache = cacheManager.getCache("person_cache");
+        cache = cacheManager.getCache("address_cache");
         cache.clear();
 
     }
 
     @Test
     void should_autowire_cache() {
-        assertThat(personCache).isNotNull();
+        assertThat(addressCache).isNotNull();
     }
 
     @Test
-    void should_cache_a_person() {
-        personCache.findPerson("01");
-        personCache.findPerson("01");
-        verify(personService).findPerson("01");
+    void should_cache_an_address() {
+        addressCache.findAddress("01");
+        addressCache.findAddress("01");
+        verify(addressService).findAddress("01");
     }
 
 
     @SneakyThrows
     @Test
-    void should_expire_a_cached_person() {
-        personCache.findPerson("1");
+    void should_expire_a_cached_address() {
+        addressCache.findAddress("1");
         Thread.sleep(3000);
-        personCache.findPerson("1");
-        verify(personService, times(2)).findPerson("1");
+        addressCache.findAddress("1");
+        verify(addressService, times(2)).findAddress("1");
     }
 
     @SneakyThrows
@@ -71,12 +71,12 @@ public class PersonCacheIT {
         final CaffeineCache caffeineCache = (CaffeineCache) cache;
 
         for (int i = 0; i < 100; i++) {
-            personCache.findPerson(String.valueOf(i));
+            addressCache.findAddress(String.valueOf(i));
         }
 
         Thread.sleep(1000);
 
-        assertThat(caffeineCache.getNativeCache().estimatedSize()).isEqualTo(4);
+        assertThat(caffeineCache.getNativeCache().estimatedSize()).isEqualTo(2);
     }
 
 

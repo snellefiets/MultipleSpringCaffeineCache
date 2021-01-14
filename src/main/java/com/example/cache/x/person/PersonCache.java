@@ -1,4 +1,4 @@
-package com.example.cache.y.person;
+package com.example.cache.x.person;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
